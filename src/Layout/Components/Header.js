@@ -11,7 +11,7 @@ import { faBell, faCircleQuestion } from "@fortawesome/free-regular-svg-icons";
 import { faFacebook, faInstagram } from "@fortawesome/free-brands-svg-icons";
 function Header() {
   return (
-    <div className="header bg-[rgba(0,0,0,0.75)]">
+    <div className="header bg-slate-900">
       <div className="header--wrapper mx-[var(--app-margin)]">
         <div className="header__route">
           <div className="header__route--left">
@@ -74,7 +74,7 @@ function Header() {
               </g>
             </svg>
           </a>
-          <div className="header__filter max-w-[950px]">
+          <div className="header__filter max-w-[1100px]">
             <div className="header__search">
               <input
                 placeholder="Máy Tính Ryzen 10"
