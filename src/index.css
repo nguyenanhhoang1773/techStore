@@ -2,7 +2,7 @@
 @tailwind components;
 @tailwind utilities;
 :root { 
-    --app-margin:300px;
+    --app-margin:200px;
     --height-header : 126px;
     --text-primary: rgba(0,0,0,0.8)
 }
