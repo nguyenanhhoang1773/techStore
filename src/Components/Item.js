@@ -1,9 +1,13 @@
+import { Link } from "react-router-dom";
 import { StartIcon } from "../assets/icon";
-
+import router from "../router";
 function Item({ src }) {
   return (
     <div className="inline-block text-[var(--text-primary)]  w-[20%] p-[10px]">
-      <div className="bg-white relative hover:cursor-pointer hover:border border-green-500 hover:translate-y-[-4px]">
+      <Link
+        to={router.Detail}
+        className="bg-white block relative hover:cursor-pointer hover:border border-green-500 hover:translate-y-[-4px]"
+      >
         <div className="absolute top-0 right-0 w-[60px] h-[40px] text-[14px] text-white text-center bg-green-500">
           <p className="text-black">20%</p>
           <p className="">Giảm</p>
@@ -37,7 +41,7 @@ function Item({ src }) {
             </p>
           </div>
         </div>
-      </div>
+      </Link>
     </div>
   );
 }

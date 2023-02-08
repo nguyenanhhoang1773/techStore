@@ -4,7 +4,11 @@
 :root { 
     --app-margin:200px;
     --height-header : 126px;
-    --text-primary: rgba(0,0,0,0.8)
+    --text-primary: rgba(0,0,0,0.8);
+    --color-primary:#22c55e;
+}
+.text-primary{
+    color: rgba(0, 0, 0, 0.4);
 }
 body { 
     color: white;
