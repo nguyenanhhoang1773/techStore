@@ -1,7 +1,10 @@
 import DefaultLayout from "./Layout/DefaultLayout ";
-import { BrowserRouter as Router, Route, Routes } from "react-router-dom";
 import { HomePage, DetailPage } from "./pages";
 import router from "./router";
+
+import "slick-carousel/slick/slick.css";
+import "slick-carousel/slick/slick-theme.css";
+import { BrowserRouter as Router, Route, Routes } from "react-router-dom";
 function App() {
   return (
     <Router>
@@ -24,7 +27,6 @@ function App() {
             }
           />
         </Routes>
-        <DefaultLayout />
       </div>
     </Router>
   );
