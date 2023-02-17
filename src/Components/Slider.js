@@ -10,7 +10,7 @@ function PrevArrow(props) {
   const { className, style, onClick, custom } = props;
   return (
     <div
-      className={`${className} arrow !w-auto !h-auto !left-[-50px]`}
+      className={`${className} arrow !w-auto !h-auto !left-[-56px]`}
       style={{ ...style, display: "block", background: "transparent" }}
       onClick={onClick}
     >
@@ -25,7 +25,7 @@ function NextArrow(props) {
   const { className, style, onClick, custom } = props;
   return (
     <div
-      className={`${className} arrow !w-auto !h-auto !right-[-50px] `}
+      className={`${className} arrow !w-auto !h-auto !right-[-56px] `}
       style={{ ...style, display: "block", background: "transparent" }}
       onClick={onClick}
     >
@@ -39,7 +39,7 @@ function NextArrow(props) {
 function Slider({ children, props, customPrev, customNext, scroll }) {
   const sliderSetting = {
     infinite: true,
-    speed: 500,
+    speed: 300,
     autoplay: scroll ? true : false,
     autoplaySpeed: 3000,
     slidesToShow: 5,

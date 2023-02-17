@@ -20,8 +20,9 @@ function DetailPage() {
             <div></div>
           </div>
           <div className="px-[20px] ml-[40px] py-[30px]">
-            <h3>
-              Áo Polo Unisex Teelab,Polo form rộng unisex Teelab localbrand
+            <h3 className="max-w-[500px]">
+              Áo Polo Unisex Teelab,Polo form rộng unisex Teelab localbrandÁo
+              Polo Unisex Teelab,Polo form rộng unisex Teelab localbrand
             </h3>
             <div className="flex mt-[12px] items-center">
               <span className=" mr-[4px]">4.5</span>
