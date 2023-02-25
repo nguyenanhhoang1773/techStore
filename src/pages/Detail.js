@@ -1,28 +1,100 @@
 import { StartIcon, CartIcon } from "../assets/icon";
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
-import {
-  faBoxOpen,
-  faMobile,
-  faShield,
-} from "@fortawesome/free-solid-svg-icons";
+import { faStar, faSpinner } from "@fortawesome/free-solid-svg-icons";
 import { Item } from "../Components";
 import Slider from "../Components/Slider";
+import { useParams } from "react-router-dom";
+import { db, dbProduct } from "../api";
+import { useEffect, useState } from "react";
+import { useDispatch } from "react-redux";
+import { addProduct } from "../features/CartManage";
+import { animated, useSpring } from "@react-spring/web";
 function DetailPage() {
+  const [springs, api] = useSpring(() => ({
+    from: { x: "-50%", y: -120 },
+  }));
+  const dispath = useDispatch();
+  const { id: idProduct } = useParams();
+  const [product, setProduct] = useState({});
+  const [loading, setLoading] = useState(false);
+  useEffect(() => {
+    db.forEach(
+      ({
+        id,
+        title,
+        src,
+        sale,
+        prevPrice,
+        nextPrice,
+        infor1,
+        infor2,
+        infor3,
+      }) => {
+        if (idProduct == id) {
+          setProduct({
+            id,
+            title,
+            src,
+            sale,
+            prevPrice,
+            nextPrice,
+            infor1,
+            infor2,
+            infor3,
+          });
+        }
+      }
+    );
+  }, [idProduct]);
+  const handleAddToCart = (e) => {
+    setLoading(true);
+
+    setTimeout(() => {
+      setLoading(false);
+      api.start({
+        from: {
+          x: "-50%",
+          y: -120,
+          opacity: 0,
+        },
+        to: {
+          x: "-50%",
+          y: 0,
+          opacity: 1,
+        },
+      });
+    }, 500);
+    setTimeout(() => {
+      api.start({
+        from: {
+          opacity: 1,
+        },
+        to: {
+          opacity: 0,
+        },
+      });
+    }, 2000);
+    dispath(addProduct({ ...product }));
+  };
   return (
-    <div>
+    <divv className="relative">
+      <animated.div
+        className="py-[6px] px-[12px] text-shadow text-[22px] text-center font-[600] rounded-xl bg-green-400 absolute left-[50%] translate-x-2 "
+        style={{
+          ...springs,
+        }}
+      >
+        Đã thêm vào giỏ hàng!!
+      </animated.div>
       <div className="px-[10px]">
-        <div className="flex justify-center rounded-lg bg-white text-[rgba(0,0,0,0.7)]">
+        <div className="flex border-r-[8px] shadow-lg border-l-[8px] border-green-400  justify-center rounded-lg bg-white text-[rgba(0,0,0,0.7)]">
           <div>
-            <img
-              className="rounded-sm"
-              src="https://cdn2.cellphones.com.vn/358x358,webp,q100/media/catalog/product/_/0/_0004_a8x5s21121110pcah70.jpg"
-            />
+            <img className="rounded-sm py-[10px]" src={product.src} />
             <div></div>
           </div>
           <div className="px-[20px] ml-[40px] py-[30px]">
-            <h3 className="max-w-[500px]">
-              Áo Polo Unisex Teelab,Polo form rộng unisex Teelab localbrandÁo
-              Polo Unisex Teelab,Polo form rộng unisex Teelab localbrand
+            <h3 className="max-w-[500px] text-[20px] font-[600]">
+              {product.title}
             </h3>
             <div className="flex mt-[12px] items-center">
               <span className=" mr-[4px]">4.5</span>
@@ -39,12 +111,14 @@ function DetailPage() {
               </span>
             </div>
             <div className="flex mt-[10px] items-center">
-              <span className="text-primary line-through">180.000đ</span>
+              <span className="text-primary line-through">
+                {product.prevPrice}đ
+              </span>
               <span className="text-[var(--color-primary)] text-[24px] ml-[10px]">
-                125.000đ
+                {product.nextPrice}đ
               </span>
               <div className="bg-[var(--color-primary)]  text-white inline-block  ml-[12px] px-[4px] rounded-sm">
-                31% Giảm
+                {product.sale}% Giảm
               </div>
             </div>
             <div className="mt-[10px]">
@@ -71,9 +145,22 @@ function DetailPage() {
               </div>
             </div>
             <div className="mt-[20px]">
-              <div className="inline-block hover:opacity-80 hover:cursor-pointer bg-green-100 px-[12px] py-[10px] text-center w-[220px] border border-[var(--color-primary)] text-[var(--color-primary)] rounded-sm">
-                <CartIcon />
-                <span className="ml-[8px]">Thêm Vào Giỏ Hàng</span>
+              <div
+                onClick={handleAddToCart}
+                className="inline-block h-[44px] hover:opacity-70 hover:cursor-pointer bg-green-100 px-[12px] py-[10px] text-center w-[220px] border border-[var(--color-primary)] text-[var(--color-primary)] rounded-sm"
+              >
+                {!loading && (
+                  <>
+                    <CartIcon />
+                    <span className="ml-[8px]">Thêm Vào Giỏ Hàng</span>
+                  </>
+                )}
+                {loading && (
+                  <FontAwesomeIcon
+                    className="text-[20px] animate-spin"
+                    icon={faSpinner}
+                  />
+                )}
               </div>
               <div className="inline-block hover:cursor-pointer hover:opacity-80 w-[100px] ml-[12px] bg-[var(--color-primary)] rounded-sm text-white p-[12px]">
                 Mua Ngay
@@ -88,31 +175,21 @@ function DetailPage() {
               <div className=" px-[10px] py-[8px] ">
                 <div className="flex">
                   <div className="w-[20px] flex justify-center">
-                    <FontAwesomeIcon className="" icon={faMobile} />
+                    <FontAwesomeIcon className="mt-[3px]" icon={faStar} />
                   </div>
-                  <span className="ml-[10px]">
-                    iPhone 13 128GB, cáp USB-C sang Lightning
-                  </span>
+                  <span className="ml-[10px]">{product.infor1}</span>
                 </div>
                 <div className="mt-[8px] flex">
                   <div className="w-[20px] flex justify-center">
-                    <FontAwesomeIcon className="" icon={faBoxOpen} />
+                    <FontAwesomeIcon className="mt-[3px]" icon={faStar} />
                   </div>
-                  <span className="ml-[10px]">
-                    1 ĐỔI 1 trong 30 ngày nếu có lỗi phần cứng nhà sản xuất. Bảo
-                    hành 12 tháng tại trung tâm bảo hành chính hãng Apple : Điện
-                    Thoại Vui ASP (Apple Authorized Service Provider)
-                  </span>
+                  <span className="ml-[10px]">{product.infor2}</span>
                 </div>
                 <div className="mt-[8px] flex">
                   <div className="w-[20px] flex justify-center">
-                    <FontAwesomeIcon className="" icon={faShield} />
+                    <FontAwesomeIcon className="mt-[3px]" icon={faStar} />
                   </div>
-                  <span className="ml-[10px]">
-                    Máy mới 100% , chính hãng Apple Việt Nam. CellphoneS hiện là
-                    đại lý bán lẻ uỷ quyền iPhone chính hãng VN/A của Apple Việt
-                    Nam
-                  </span>
+                  <span className="ml-[10px]">{product.infor3}</span>
                 </div>
               </div>
             </div>
@@ -120,18 +197,21 @@ function DetailPage() {
         </div>
       </div>
       <div className="mt-[26px]">
-        <Slider>
-          <Item src="https://cdn2.cellphones.com.vn/358x358,webp,q100/media/catalog/product/_/0/_0004_a8x5s21121110pcah70.jpg" />
-          <Item src="https://cdn2.cellphones.com.vn/358x358,webp,q100/media/catalog/product/p/h/photo_2022-09-28_21-58-51.jpg" />
-          <Item src="https://cdn2.cellphones.com.vn/358x358,webp,q100/media/catalog/product/p/h/photo_2022-09-28_21-58-51.jpg" />
-          <Item src="https://cdn2.cellphones.com.vn/358x358,webp,q100/media/catalog/product/1/4/14_1_9_2_9.jpg" />
-          <Item src="https://cdn2.cellphones.com.vn/358x358,webp,q100/media/catalog/product/p/h/photo_2022-09-28_21-58-51.jpg" />
-          <Item src="https://cdn2.cellphones.com.vn/358x358,webp,q100/media/catalog/product/p/h/photo_2022-09-28_21-58-51.jpg" />
-          <Item src="https://cdn2.cellphones.com.vn/358x358,webp,q100/media/catalog/product/p/h/photo_2022-09-28_21-58-51.jpg" />
-          <Item src="https://cdn2.cellphones.com.vn/358x358,webp,q100/media/catalog/product/p/h/photo_2022-09-28_21-58-51.jpg" />
+        <Slider scroll>
+          {dbProduct.map(({ id, title, src, sale, prevPrice, nextPrice }) => (
+            <Item
+              id={id}
+              key={id}
+              title={title}
+              src={src}
+              sale={sale}
+              prevPrice={prevPrice}
+              nextPrice={nextPrice}
+            />
+          ))}
         </Slider>
       </div>
-    </div>
+    </divv>
   );
 }
 

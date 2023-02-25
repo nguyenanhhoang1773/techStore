@@ -8,7 +8,6 @@ function DefaultLayout({ children }) {
   const startEle = useRef();
   const [height, setHeight] = useState(window.innerHeight);
   useEffect(() => {
-    console.log(param.pathname);
     startEle.current.scrollIntoView({
       behavior: "smooth",
       block: "start",
@@ -27,7 +26,7 @@ function DefaultLayout({ children }) {
         heightBar={140}
         colorBar="rgb(74 222 128)"
       >
-        <div className="bg-slate-500">
+        <div className="bg-[#9fdfb8a6]">
           <div ref={startEle}></div>
           <Header />
           <Container>{children}</Container>

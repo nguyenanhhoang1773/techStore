@@ -10,9 +10,12 @@ import {
 import { faBell, faCircleQuestion } from "@fortawesome/free-regular-svg-icons";
 import { faFacebook, faInstagram } from "@fortawesome/free-brands-svg-icons";
 import { Link } from "react-router-dom";
+import router from "../../router";
+import { useSelector } from "react-redux";
 function Header() {
+  const amount = useSelector((state) => state.cartManage.amount);
   return (
-    <div className="header bg-slate-900">
+    <div className="header bg-slate-800">
       <div className="header--wrapper mx-[var(--app-margin)]">
         <div className="header__route">
           <div className="header__route--left">
@@ -85,17 +88,26 @@ function Header() {
               </button>
             </div>
             <div className="header__items">
-              <a className="header__item">Áo Khoác</a>
-              <a className="header__item">Dép</a>
-              <a className="header__item">Túi Xách</a>
-              <a className="header__item">Balo</a>
-              <a className="header__item">Quần Baggy</a>
+              <a className="header__item">Điện thoại</a>
+              <a className="header__item">laptop</a>
+              <a className="header__item">Đồng Hồ</a>
               <a className="header__item">Tai Nghe</a>
-              <a className="header__item">Son</a>
+              <a className="header__item">Giá Đỡ</a>
+              <a className="header__item">Đĩa game</a>
             </div>
           </div>
           <div className="header__cart">
-            <FontAwesomeIcon className="text-green-500" icon={faCartShopping} />
+            <Link className="relative" to={router.Cart}>
+              <FontAwesomeIcon
+                className="text-green-500 text-[30px]"
+                icon={faCartShopping}
+              />
+              {amount > 0 && (
+                <div className="absolute w-[18px] text-shadow h-[18px] text-[14px] flex justify-center items-center font-[700] bg-green-500 rounded-full top-[-6px] right-[-6px]">
+                  {amount}
+                </div>
+              )}
+            </Link>
           </div>
         </div>
       </div>

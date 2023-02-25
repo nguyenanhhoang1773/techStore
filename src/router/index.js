@@ -1,5 +1,6 @@
 const router = {
   Home: "/",
-  Detail: "/Detail",
+  Detail: "/Detail/:id",
+  Cart: "/myCart",
 };
 export default router;

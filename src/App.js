@@ -1,5 +1,5 @@
 import DefaultLayout from "./Layout/DefaultLayout ";
-import { HomePage, DetailPage } from "./pages";
+import { HomePage, DetailPage, CartPage } from "./pages";
 import router from "./router";
 
 import "slick-carousel/slick/slick.css";
@@ -23,6 +23,14 @@ function App() {
             element={
               <DefaultLayout>
                 <DetailPage />
+              </DefaultLayout>
+            }
+          />
+          <Route
+            path={router.Cart}
+            element={
+              <DefaultLayout>
+                <CartPage />
               </DefaultLayout>
             }
           />
