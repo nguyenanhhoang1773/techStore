@@ -8,11 +8,11 @@ import { db, dbProduct } from "../api";
 import { useEffect, useState } from "react";
 import { useDispatch } from "react-redux";
 import { addProduct } from "../features/CartManage";
-import { animated, useSpring } from "@react-spring/web";
+// import { animated, useSpring } from "@react-spring/web";
 function DetailPage() {
-  const [springs, api] = useSpring(() => ({
-    from: { x: "-50%", y: -120 },
-  }));
+  // const [springs, api] = useSpring(() => ({
+  //   from: { x: "-50%", y: -120 },
+  // }));
   const dispath = useDispatch();
   const { id: idProduct } = useParams();
   const [product, setProduct] = useState({});
@@ -51,41 +51,41 @@ function DetailPage() {
 
     setTimeout(() => {
       setLoading(false);
-      api.start({
-        from: {
-          x: "-50%",
-          y: -120,
-          opacity: 0,
-        },
-        to: {
-          x: "-50%",
-          y: 0,
-          opacity: 1,
-        },
-      });
+      // api.start({
+      //   from: {
+      //     x: "-50%",
+      //     y: -120,
+      //     opacity: 0,
+      //   },
+      //   to: {
+      //     x: "-50%",
+      //     y: 0,
+      //     opacity: 1,
+      //   },
+      // });
     }, 500);
-    setTimeout(() => {
-      api.start({
-        from: {
-          opacity: 1,
-        },
-        to: {
-          opacity: 0,
-        },
-      });
-    }, 2000);
+    // setTimeout(() => {
+    //   api.start({
+    //     from: {
+    //       opacity: 1,
+    //     },
+    //     to: {
+    //       opacity: 0,
+    //     },
+    //   });
+    // }, 2000);
     dispath(addProduct({ ...product }));
   };
   return (
     <divv className="relative">
-      <animated.div
+      {/* <animated.div
         className="py-[6px] px-[12px] text-shadow text-[22px] text-center font-[600] rounded-xl bg-green-400 absolute left-[50%] translate-x-2 "
         style={{
           ...springs,
         }}
       >
         Đã thêm vào giỏ hàng!!
-      </animated.div>
+      </animated.div> */}
       <div className="px-[10px]">
         <div className="flex border-r-[8px] shadow-lg border-l-[8px] border-green-400  justify-center rounded-lg bg-white text-[rgba(0,0,0,0.7)]">
           <div>
