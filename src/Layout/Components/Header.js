@@ -12,8 +12,26 @@ import { faFacebook, faInstagram } from "@fortawesome/free-brands-svg-icons";
 import { Link } from "react-router-dom";
 import router from "../../router";
 import { useSelector } from "react-redux";
+import SearchItem from "../../Components/SeachItem";
+import { db } from "../../api";
+import { useState } from "react";
 function Header() {
+  const [resultsSearch, setResultSearch] = useState([]);
+  const [showResults, setShowResults] = useState(false);
   const amount = useSelector((state) => state.cartManage.amount);
+  const handleSearch = (e) => {
+    console.log(e.target.value.trim());
+    if (e.target.value.trim()) {
+      const products = db.filter((product) => {
+        return product.title
+          .toLowerCase()
+          .includes(e.target.value.trim().toLowerCase());
+      });
+      setResultSearch(products);
+    } else {
+      setResultSearch([]);
+    }
+  };
   return (
     <div className="header bg-slate-800">
       <div className="header--wrapper mx-[var(--app-margin)]">
@@ -24,7 +42,7 @@ function Header() {
             </a>
             <div className="item-line"></div>
             <a className="header__route__item" href="#">
-              Trở thành Người bán Shopee
+              Trở thành Người bán TechStore
             </a>
             <div className="item-line"></div>
             <a className="header__route__item" href="#">
@@ -78,14 +96,37 @@ function Header() {
             />
           </Link>
           <div className="header__filter max-w-[1100px]">
-            <div className="header__search">
+            <div className="header__search relative">
               <input
+                onBlur={() => {
+                  setTimeout(() => {
+                    setShowResults(false);
+                  }, 300);
+                }}
+                onFocus={() => {
+                  setShowResults(true);
+                }}
+                onKeyUp={handleSearch}
                 placeholder="Máy Tính Ryzen 10"
                 className="header__search--input text-black px-[10px]"
               />
               <button className="header__search--btn bg-green-600">
                 <FontAwesomeIcon className="fa-icon" icon={faMagnifyingGlass} />
               </button>
+              {resultsSearch.length > 0 && showResults && (
+                <div className="absolute max-h-[400px] overflow-auto rounded-b-lg hover:cursor-pointer  top-[95%] left-0 right-0 border-[4px] border-t-transparent border-green-400  bg-white ">
+                  {resultsSearch.map((product, index) => (
+                    <SearchItem
+                      id={product.id}
+                      title={product.title}
+                      src={product.src}
+                      prevPrice={product.prevPrice}
+                      nextPrice={product.nextPrice}
+                      key={index}
+                    />
+                  ))}
+                </div>
+              )}
             </div>
             <div className="header__items">
               <a className="header__item">Điện thoại</a>

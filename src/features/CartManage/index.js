@@ -17,10 +17,14 @@ export const cartManage = createSlice({
         (product) => product.id !== action.payload
       );
     },
+    clearProducts: (state, action) => {
+      state.amount = 0;
+      state.products = [];
+    },
   },
 });
 
 // Action creators are generated for each case reducer function
-export const { addProduct, removeProduct } = cartManage.actions;
+export const { addProduct, removeProduct, clearProducts } = cartManage.actions;
 
 export default cartManage.reducer;
