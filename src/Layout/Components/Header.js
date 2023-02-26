@@ -15,12 +15,14 @@ import { useSelector } from "react-redux";
 import SearchItem from "../../Components/SeachItem";
 import { db } from "../../api";
 import { useState } from "react";
+import { useMediaQuery } from "react-responsive";
+
 function Header() {
+  const isBigScreen = useMediaQuery({ minWidth: 1478 });
   const [resultsSearch, setResultSearch] = useState([]);
   const [showResults, setShowResults] = useState(false);
   const amount = useSelector((state) => state.cartManage.amount);
   const handleSearch = (e) => {
-    console.log(e.target.value.trim());
     if (e.target.value.trim()) {
       const products = db.filter((product) => {
         return product.title
@@ -56,17 +58,24 @@ function Header() {
             <FontAwesomeIcon className="ml-[2px] fa-icon" icon={faInstagram} />
           </div>
           <div className="header__route--right">
-            <a className="header__route__item">
-              <FontAwesomeIcon className="fa-icon mr-[4px] " icon={faBell} />
-              Thông báo
-            </a>
-            <a className="header__route__item">
-              <FontAwesomeIcon
-                className="fa-icon mr-[4px]"
-                icon={faCircleQuestion}
-              />
-              Hỗ Trợ
-            </a>
+            {isBigScreen && (
+              <>
+                <a className="header__route__item">
+                  <FontAwesomeIcon
+                    className="fa-icon mr-[4px] "
+                    icon={faBell}
+                  />
+                  Thông báo
+                </a>
+                <a className="header__route__item">
+                  <FontAwesomeIcon
+                    className="fa-icon mr-[4px]"
+                    icon={faCircleQuestion}
+                  />
+                  Hỗ Trợ
+                </a>
+              </>
+            )}
             <a className="header__route__item">
               <FontAwesomeIcon className="fa-icon mr-[4px]" icon={faGlobe} />
               Tiếng Việt

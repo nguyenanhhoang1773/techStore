@@ -4,56 +4,181 @@ import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 import { Link } from "react-router-dom";
 import { StartIcon } from "../assets/icon";
 import router from "../router";
+import { useMediaQuery } from "react-responsive";
+
 import "./Item.scss";
-function Item({ id, title, sale, src, prevPrice, nextPrice }) {
+function Item({ id, title, sale, src, prevPrice, nextPrice, onClick }) {
+  const isBigScreen = useMediaQuery({ minWidth: 1774 });
+  const Laptop = useMediaQuery({ minWidth: 1644, maxWidth: 1773 });
+  const miniLaptop = useMediaQuery({ minWidth: 1500, maxWidth: 1643 });
+  const isTabletOrMobile = useMediaQuery({ maxWidth: 1499 });
+
   return (
     <div className="inline-block text-[var(--text-primary)]  w-full  p-[10px]">
-      <Link
-        to={`/Detail/${id}`}
-        className="bg-white block shadow-lg rounded-xl relative hover:cursor-pointer hover:border border-green-500 hover:translate-y-[-4px]"
-      >
-        <div className="absolute font-[600] text-shadow top-[16px] left-[-8px] bg-[var(--color-primary)] p-[4px] rounded-tr-full rounded-tl-[100px] rounded-br-full">
-          Giảm {sale}%
-          <div className="absolute top-[100%] left-0 border-[4px] border-[var(--color-primary)] border-b-transparent border-l-transparent "></div>
-        </div>
-        <img className="p-[10px] w-[284px]" src={src} />
-        <div className="px-[16px] py-[6px]">
-          <div className="h-[44px] overflow-hidden">
-            <a className="text-[16px]   text-[rgba(0,0,0,0.9)]">{title}</a>
+      {id === 23 && (
+        <div
+          onClick={onClick}
+          className="bg-white block shadow-lg rounded-xl relative hover:cursor-pointer hover:border border-green-500 hover:translate-y-[-4px]"
+        >
+          <div className="absolute font-[600] text-shadow top-[16px] left-[-8px] bg-[var(--color-primary)] p-[4px] rounded-tr-full rounded-tl-[100px] rounded-br-full">
+            Giảm {sale}%
+            <div className="absolute top-[100%] left-0 border-[4px] border-[var(--color-primary)] border-b-transparent border-l-transparent "></div>
           </div>
-          <div className="mt-[2px] ">
-            <span className="text-[18] line-through text-[rgba(0,0,0,0.4)]">
-              {prevPrice}đ
-            </span>
-            <span className="text-[26px] ml-[10px] text-green-500">
-              {nextPrice}đ
-            </span>
-          </div>
-          <div>
-            <div className="inline-block mt-[4px] ">
-              <StartIcon />
-              <StartIcon />
-              <StartIcon />
-              <StartIcon />
-              <StartIcon />
+          <img className="p-[10px] w-[284px]" src={src} />
+          <div className="px-[16px] py-[6px]">
+            <div className="h-[44px] overflow-hidden">
+              <a className="text-[16px]   text-[rgba(0,0,0,0.9)]">{title}</a>
             </div>
-            <span className="text-[14px] ml-[10px]">Đã bán 12,2k</span>
-            <div className="text-primary text-end px-[10px]">
-              <span className="mr-[8px]">Yêu thích</span>
-              <span className="heart">
-                <FontAwesomeIcon
-                  className="heart-prev text-[18px] text-[var(--color-primary)]"
-                  icon={faHeart}
-                />
-                <FontAwesomeIcon
-                  className="heart-next text-[18px] text-[var(--color-primary)]"
-                  icon={faHeartSolid}
-                />
-              </span>
+            <div className="mt-[2px] ">
+              {isBigScreen && (
+                <>
+                  <span className="text-[18px] line-through text-[rgba(0,0,0,0.4)]">
+                    {prevPrice}đ
+                  </span>
+                  <span className="text-[25px] ml-[10px] text-green-500">
+                    {nextPrice}đ
+                  </span>
+                </>
+              )}
+              {Laptop && (
+                <>
+                  <span className="text-[18px] line-through text-[rgba(0,0,0,0.4)]">
+                    {prevPrice}đ
+                  </span>
+                  <span className="text-[22px] ml-[10px] text-green-500">
+                    {nextPrice}đ
+                  </span>
+                </>
+              )}
+              {miniLaptop && (
+                <>
+                  <span className="text-[14px] line-through text-[rgba(0,0,0,0.4)]">
+                    {prevPrice}đ
+                  </span>
+                  <span className="text-[20px] ml-[10px] text-green-500">
+                    {nextPrice}đ
+                  </span>
+                </>
+              )}
+              {isTabletOrMobile && (
+                <>
+                  <span className="text-[12px] line-through text-[rgba(0,0,0,0.4)]">
+                    {prevPrice}đ
+                  </span>
+                  <span className="text-[16px] ml-[10px] text-green-500">
+                    {nextPrice}đ
+                  </span>
+                </>
+              )}
+            </div>
+            <div>
+              <div className="inline-block mt-[4px] ">
+                <StartIcon />
+                <StartIcon />
+                <StartIcon />
+                <StartIcon />
+                <StartIcon />
+              </div>
+              <span className="text-[14px] ml-[10px]">Đã bán 12,2k</span>
+              <div className="text-primary text-end px-[10px]">
+                <span className="mr-[8px]">Yêu thích</span>
+                <span className="heart">
+                  <FontAwesomeIcon
+                    className="heart-prev text-[18px] text-[var(--color-primary)]"
+                    icon={faHeart}
+                  />
+                  <FontAwesomeIcon
+                    className="heart-next text-[18px] text-[var(--color-primary)]"
+                    icon={faHeartSolid}
+                  />
+                </span>
+              </div>
             </div>
           </div>
         </div>
-      </Link>
+      )}
+      {id !== 23 && (
+        <Link
+          to={`/Detail/${id}`}
+          className="bg-white block shadow-lg rounded-xl relative hover:cursor-pointer hover:border border-green-500 hover:translate-y-[-4px]"
+        >
+          <div className="absolute font-[600] text-shadow top-[16px] left-[-8px] bg-[var(--color-primary)] p-[4px] rounded-tr-full rounded-tl-[100px] rounded-br-full">
+            Giảm {sale}%
+            <div className="absolute top-[100%] left-0 border-[4px] border-[var(--color-primary)] border-b-transparent border-l-transparent "></div>
+          </div>
+          <img className="p-[10px] w-[284px]" src={src} />
+          <div className="px-[16px] py-[6px]">
+            <div className="h-[44px] overflow-hidden">
+              <a className="text-[16px]   text-[rgba(0,0,0,0.9)]">{title}</a>
+            </div>
+            <div className="mt-[2px] ">
+              {isBigScreen && (
+                <>
+                  <span className="text-[18px] line-through text-[rgba(0,0,0,0.4)]">
+                    {prevPrice}đ
+                  </span>
+                  <span className="text-[25px] ml-[10px] text-green-500">
+                    {nextPrice}đ
+                  </span>
+                </>
+              )}
+              {Laptop && (
+                <>
+                  <span className="text-[18px] line-through text-[rgba(0,0,0,0.4)]">
+                    {prevPrice}đ
+                  </span>
+                  <span className="text-[22px] ml-[10px] text-green-500">
+                    {nextPrice}đ
+                  </span>
+                </>
+              )}
+              {miniLaptop && (
+                <>
+                  <span className="text-[14px] line-through text-[rgba(0,0,0,0.4)]">
+                    {prevPrice}đ
+                  </span>
+                  <span className="text-[20px] ml-[10px] text-green-500">
+                    {nextPrice}đ
+                  </span>
+                </>
+              )}
+              {isTabletOrMobile && (
+                <>
+                  <span className="text-[12px] line-through text-[rgba(0,0,0,0.4)]">
+                    {prevPrice}đ
+                  </span>
+                  <span className="text-[16px] ml-[10px] text-green-500">
+                    {nextPrice}đ
+                  </span>
+                </>
+              )}
+            </div>
+            <div>
+              <div className="inline-block mt-[4px] ">
+                <StartIcon />
+                <StartIcon />
+                <StartIcon />
+                <StartIcon />
+                <StartIcon />
+              </div>
+              <span className="text-[14px] ml-[10px]">Đã bán 12,2k</span>
+              <div className="text-primary text-end px-[10px]">
+                <span className="mr-[8px]">Yêu thích</span>
+                <span className="heart">
+                  <FontAwesomeIcon
+                    className="heart-prev text-[18px] text-[var(--color-primary)]"
+                    icon={faHeart}
+                  />
+                  <FontAwesomeIcon
+                    className="heart-next text-[18px] text-[var(--color-primary)]"
+                    icon={faHeartSolid}
+                  />
+                </span>
+              </div>
+            </div>
+          </div>
+        </Link>
+      )}
     </div>
   );
 }

@@ -5,7 +5,7 @@ import { removeProduct } from "../features/CartManage";
 function CartItem({ id, title, src, prevPrice, nextPrice, sale }) {
   const dispatch = useDispatch();
   return (
-    <div className="flex mt-[12px] min-w-[720px] border-l-[2px]  border-r-[2px]  border-green-500 bg-white rounded-md">
+    <div className="flex mt-[12px]  border-l-[2px]  border-r-[2px]  border-green-500 bg-white rounded-md">
       <img className="w-[160px] pl-[10px] py-[4px] rounded-md" src={src} />
       <div className="ml-[12px]  py-[12px]">
         <h3 className="text-[rgba(0,0,0,0.8)] mb-[10px] font-[600] text-[22px]">

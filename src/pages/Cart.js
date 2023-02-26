@@ -1,4 +1,5 @@
 import {
+  faBoxOpen,
   faCartShopping,
   faFaceSadCry,
   faFaceSmileWink,
@@ -13,7 +14,10 @@ import { useEffect, useState } from "react";
 import router from "../router";
 import { Link } from "react-router-dom";
 import { clearProducts } from "../features/CartManage";
+import { useMediaQuery } from "react-responsive";
+
 function CartPage() {
+  const isBigScreen = useMediaQuery({ minWidth: 1774 });
   const dispath = useDispatch();
   const [totalPrice, setTotalPrice] = useState("");
   const [showModal, setShowModal] = useState(false);
@@ -119,8 +123,29 @@ function CartPage() {
           Giỏ hàng của bạn
         </span>
       </div>
-      {products.length > 0 && (
-        <div className="mx-[300px]   min-h-[640px] px-[14px] pb-[130px] rounded-xl">
+      {products.length > 0 && isBigScreen && (
+        <div className="mx-[300px] relative px-[20px] pt-[2px] border-t-[2px] rounded-t-xl border-l-[2px] border-r-[2px] border-green-500 min-h-[640px] px-[14px] pb-[130px]">
+          <div className="absolute rounded-t-full pt-[16px] pl-[20px] pr-[20px]  bg-green-500 bottom-[100%] left-[50%] translate-x-[-50%]">
+            <FontAwesomeIcon className="text-[28px]" icon={faBoxOpen} />
+          </div>
+          {products.map((product) => (
+            <CartItem
+              id={product.id}
+              title={product.title}
+              src={product.src}
+              sale={product.sale}
+              prevPrice={product.prevPrice}
+              nextPrice={product.nextPrice}
+              key={product.id}
+            />
+          ))}
+        </div>
+      )}
+      {products.length > 0 && !isBigScreen && (
+        <div className="mx-[180px] relative px-[20px] pt-[2px] border-t-[2px] rounded-t-xl border-l-[2px] border-r-[2px] border-green-500 min-h-[640px] px-[14px] pb-[130px]">
+          <div className="absolute rounded-t-full pt-[16px] pl-[20px] pr-[20px]  bg-green-500 bottom-[100%] left-[50%] translate-x-[-50%]">
+            <FontAwesomeIcon className="text-[28px]" icon={faBoxOpen} />
+          </div>
           {products.map((product) => (
             <CartItem
               id={product.id}
