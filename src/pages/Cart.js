@@ -23,7 +23,6 @@ function CartPage() {
   const [showModal, setShowModal] = useState(false);
   const products = useSelector((state) => state.cartManage.products);
   useEffect(() => {
-    console.log(products);
     let total = 0;
     products.forEach((product) => {
       total += Number(product.nextPrice.replace(".000", "").replace(".", ""));

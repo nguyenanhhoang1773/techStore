@@ -67,7 +67,6 @@ function DetailPage() {
     const num = products.filter((product) => {
       return product.id == idProduct;
     });
-    console.log(products);
     if (num.length > 0) {
       setHaveProduct(true);
       setTimeout(() => {

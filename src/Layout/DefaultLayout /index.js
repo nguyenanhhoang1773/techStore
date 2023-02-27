@@ -9,7 +9,6 @@ function DefaultLayout({ children }) {
   const startEle = useRef();
   const [height, setHeight] = useState(window.innerHeight);
   const show = useMediaQuery({ minWidth: 1224 });
-  console.log(show);
   useEffect(() => {
     if (show) {
       startEle.current.scrollIntoView({

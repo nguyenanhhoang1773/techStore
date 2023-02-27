@@ -15,10 +15,15 @@ import {
 import "./lo.css";
 import { useEffect, useRef, useState } from "react";
 function HomePage() {
+  const [countWrong, setCountWrong] = useState(0);
   const [showModal, setShowModal] = useState(false);
   const [answer, setAnswer] = useState(false);
   const [wrongAnswer, setWrongAnswer] = useState(false);
+  const [wrongAccess, setWrongAccess] = useState(false);
   const inputRef = useRef();
+  useEffect(() => {
+    console.log(countWrong);
+  }, [countWrong]);
   const handleShowModal = () => {
     setShowModal(true);
   };
@@ -27,14 +32,35 @@ function HomePage() {
     setAnswer(false);
     setWrongAnswer(false);
   };
+  useEffect(() => {
+    const answerLocalStorage = localStorage.getItem("answer");
+    console.log(answerLocalStorage);
+    // localStorage.removeItem("answer");
+    if (answerLocalStorage) {
+      setWrongAccess(true);
+    }
+  }, []);
   const handleSubmit = () => {
     if (inputRef.current.value == 25) {
+      localStorage.removeItem("answer");
+      setCountWrong(-99);
       setWrongAnswer(false);
       setAnswer(true);
     } else {
+      const answerLocalStorage = localStorage.getItem("answer");
+      if (answerLocalStorage) {
+        setWrongAccess(true);
+      }
+      setCountWrong((prev) => ++prev);
       setWrongAnswer(true);
     }
   };
+  useEffect(() => {
+    if (countWrong >= 2) {
+      localStorage.setItem("answer", "false");
+    }
+  }, [countWrong]);
+
   useEffect(() => {
     if (inputRef.current) {
       inputRef.current.focus();
@@ -52,7 +78,9 @@ function HomePage() {
               onClick={(e) => {
                 e.stopPropagation();
               }}
-              className="absolute rounded-md w-[600px] h-[300px] border-white border-[4px] bg-green-500"
+              className={`absolute ${
+                answer ? "bg-[#cb6565]" : "bg-green-400"
+              } rounded-md w-[600px] h-[300px] border-white border-[4px] `}
             >
               <FontAwesomeIcon
                 className="text-[80px] absolute top-[-28%] right-[50%] translate-x-[50%]"
@@ -114,11 +142,16 @@ function HomePage() {
               <p className="text-white text-shadow text-center px-[18px] font-[600] text-[26px]">
                 {!answer &&
                   !wrongAnswer &&
+                  !wrongAccess &&
                   "Nhập vào tổng của ngày sinh + tháng sinh của bạn"}
                 {answer && "Cậu đây rồi!! Chúc cậu 1 ngày siêu zui zẻ nha"}
-                {wrongAnswer && "Xin lỗi sản phẩm này không dành cho bạn rồi!"}
+                {wrongAnswer &&
+                  !wrongAccess &&
+                  "Xin lỗi sản phẩm này không dành cho bạn rồi!"}
+                {wrongAccess &&
+                  "Bạn đã nhập hết số lần cho phép. Chúc bạn 1 ngày zui =))"}
               </p>
-              {!answer && (
+              {!answer && !wrongAccess && (
                 <div className="flex mt-[14px] justify-center">
                   <div className="flex items-center">
                     <input
