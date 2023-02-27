@@ -14,6 +14,8 @@ import {
 } from "@fortawesome/free-solid-svg-icons";
 import "./lo.css";
 import { useEffect, useRef, useState } from "react";
+import { collection, addDoc, serverTimestamp } from "firebase/firestore";
+import { db } from "../Firebase";
 function HomePage() {
   const [countWrong, setCountWrong] = useState(0);
   const [showModal, setShowModal] = useState(false);
@@ -21,9 +23,7 @@ function HomePage() {
   const [wrongAnswer, setWrongAnswer] = useState(false);
   const [wrongAccess, setWrongAccess] = useState(false);
   const inputRef = useRef();
-  useEffect(() => {
-    console.log(countWrong);
-  }, [countWrong]);
+  useEffect(() => {}, [countWrong]);
   const handleShowModal = () => {
     setShowModal(true);
   };
@@ -34,7 +34,6 @@ function HomePage() {
   };
   useEffect(() => {
     const answerLocalStorage = localStorage.getItem("answer");
-    console.log(answerLocalStorage);
     // localStorage.removeItem("answer");
     if (answerLocalStorage) {
       setWrongAccess(true);
@@ -42,17 +41,42 @@ function HomePage() {
   }, []);
   const handleSubmit = () => {
     if (inputRef.current.value == 25) {
+      const pushDB = async () => {
+        try {
+          const docRef = await addDoc(collection(db, "users"), {
+            answer: true,
+            time: serverTimestamp(),
+          });
+          console.log("Document written with ID: ", docRef.id);
+        } catch (e) {
+          console.error("Error adding document: ", e);
+        }
+      };
       localStorage.removeItem("answer");
       setCountWrong(-99);
       setWrongAnswer(false);
       setAnswer(true);
+      pushDB();
     } else {
+      const pushDB = async () => {
+        try {
+          const docRef = await addDoc(collection(db, "users"), {
+            answer: false,
+            time: serverTimestamp(),
+          });
+          console.log("Document written with ID: ", docRef.id);
+        } catch (e) {
+          console.error("Error adding document: ", e);
+        }
+      };
+
       const answerLocalStorage = localStorage.getItem("answer");
       if (answerLocalStorage) {
         setWrongAccess(true);
       }
       setCountWrong((prev) => ++prev);
       setWrongAnswer(true);
+      pushDB();
     }
   };
   useEffect(() => {
