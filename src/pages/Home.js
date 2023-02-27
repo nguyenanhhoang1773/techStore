@@ -23,6 +23,9 @@ function HomePage() {
   const [wrongAnswer, setWrongAnswer] = useState(false);
   const [wrongAccess, setWrongAccess] = useState(false);
   const inputRef = useRef();
+  const cotheRef = useRef();
+  const henxuiRef = useRef();
+  const khongRef = useRef();
   useEffect(() => {}, [countWrong]);
   const handleShowModal = () => {
     setShowModal(true);
@@ -39,8 +42,35 @@ function HomePage() {
       setWrongAccess(true);
     }
   }, []);
+  const handleGive = () => {
+    let answer = "Chua tra loi";
+    if (cotheRef.current.checked) {
+      answer = cotheRef.current.value;
+    }
+    if (henxuiRef.current.checked) {
+      answer = henxuiRef.current.value;
+    }
+    if (khongRef.current.checked) {
+      answer = khongRef.current.value;
+    }
+    const pushDB = async () => {
+      try {
+        const docRef = await addDoc(collection(db, "users"), {
+          answer: answer,
+          time: serverTimestamp(),
+        });
+        console.log("Document written with ID: ", docRef.id);
+      } catch (e) {
+        console.error("Error adding document: ", e);
+      }
+    };
+    pushDB();
+    setShowModal(false);
+    setAnswer(false);
+    setWrongAnswer(false);
+  };
   const handleSubmit = () => {
-    if (inputRef.current.value == 25) {
+    if (inputRef.current.value.trim() == 25) {
       const pushDB = async () => {
         try {
           const docRef = await addDoc(collection(db, "users"), {
@@ -103,11 +133,13 @@ function HomePage() {
                 e.stopPropagation();
               }}
               className={`absolute ${
-                answer ? "bg-[#cb6565]" : "bg-green-400"
-              } rounded-md w-[600px] h-[300px] border-white border-[4px] `}
+                answer ? "bg-[#eb9797] h-[400px]" : "bg-green-400 h-[300px]"
+              } rounded-md w-[600px]   border-white border-[4px] `}
             >
               <FontAwesomeIcon
-                className="text-[80px] absolute top-[-28%] right-[50%] translate-x-[50%]"
+                className={`text-[80px] absolute 
+                ${answer ? "top-[-21%]" : "top-[-28%]"}
+                 right-[50%] translate-x-[50%]`}
                 icon={faHandsHolding}
               />
               {!answer && (
@@ -118,7 +150,7 @@ function HomePage() {
               )}
               {answer && (
                 <FontAwesomeIcon
-                  className="text-[64px] absolute text-[#f58181] top-[-33%] right-[50%] translate-x-[50%]"
+                  className="text-[64px] absolute text-[#ff4242] top-[-25%] right-[50%] translate-x-[50%]"
                   icon={faHeart}
                 />
               )}
@@ -137,8 +169,8 @@ function HomePage() {
                   </div>
                 )}
                 {answer && (
-                  <div className="relative inline-block w-[60px] h-[44px] mr-[30px] bg-[#f58181]">
-                    <div className="absolute top-[100%] left-0 border-[30px]  border-t-0 border-[#f58181] border-b-transparent "></div>
+                  <div className="relative inline-block w-[60px] h-[44px] mr-[30px] bg-[#ff4242]">
+                    <div className="absolute top-[100%] left-0 border-[30px]  border-t-0 border-[#ff4242] border-b-transparent "></div>
                   </div>
                 )}
                 {!answer && (
@@ -158,8 +190,8 @@ function HomePage() {
                   </div>
                 )}
                 {answer && (
-                  <div className="relative inline-block w-[60px] h-[44px] ml-[30px] bg-[#f58181]">
-                    <div className="absolute top-[100%] left-0 border-[30px]  border-t-0 border-[#f58181] border-b-transparent "></div>
+                  <div className="relative inline-block w-[60px] h-[44px] ml-[30px] bg-[#ff4242]">
+                    <div className="absolute top-[100%] left-0 border-[30px]  border-t-0 border-[#ff4242] border-b-transparent "></div>
                   </div>
                 )}
               </div>
@@ -174,7 +206,58 @@ function HomePage() {
                   "Xin lỗi sản phẩm này không dành cho bạn rồi!"}
                 {wrongAccess &&
                   "Bạn đã nhập hết số lần cho phép. Chúc bạn 1 ngày zui =))"}
+                {}
               </p>
+              {answer && (
+                <div>
+                  <p className="text-white text-shadow text-center px-[18px] font-[600] text-[20px]">
+                    Ngày mai tớ qua chở cậu đi chơi đc khum ?
+                  </p>
+                  <div className="flex justify-center pt-[10px]">
+                    <input
+                      name="answer"
+                      ref={cotheRef}
+                      className="w-[20px]"
+                      type="radio"
+                      id="cothe"
+                      value="Có thể"
+                    />
+                    <label className="ml-[4px]" for="cothe">
+                      Có thể
+                    </label>
+                    <input
+                      name="answer"
+                      ref={henxuiRef}
+                      className="ml-[40px] w-[20px]"
+                      type="radio"
+                      id="henxui"
+                      value="Hên xui"
+                    />
+                    <label className="ml-[4px]" for="henxui">
+                      Hên xui
+                    </label>
+                    <input
+                      name="answer"
+                      ref={khongRef}
+                      className="ml-[40px] w-[20px]"
+                      type="radio"
+                      id="khong"
+                      value="Không"
+                    />
+                    <label className="ml-[4px]" for="khong">
+                      Không
+                    </label>
+                  </div>
+                  <div className="flex mt-[10px]  justify-center">
+                    <div
+                      onClick={handleGive}
+                      className="w-[60px] hover:opacity-70 hover:cursor-pointer h-[36px] text-[18px] bg-[#ff4242] flex justify-center items-center rounded-sm"
+                    >
+                      Gửi
+                    </div>
+                  </div>
+                </div>
+              )}
               {!answer && !wrongAccess && (
                 <div className="flex mt-[14px] justify-center">
                   <div className="flex items-center">
@@ -227,7 +310,7 @@ function HomePage() {
                 <>
                   <div className="flex justify-center mt-[10px]">
                     <FontAwesomeIcon
-                      className="text-[30px] text-[#f58181] p-[10px] "
+                      className="text-[30px] text-[#ff4242] p-[10px] "
                       icon={faHeart}
                     />
                     <FontAwesomeIcon
@@ -235,7 +318,7 @@ function HomePage() {
                       icon={faHeart}
                     />
                     <FontAwesomeIcon
-                      className="text-[30px] text-[#f58181] p-[10px] "
+                      className="text-[30px] text-[#ff4242] p-[10px] "
                       icon={faHeart}
                     />
                     <FontAwesomeIcon
@@ -243,13 +326,13 @@ function HomePage() {
                       icon={faHeart}
                     />
                     <FontAwesomeIcon
-                      className="text-[30px] text-[#f58181] p-[10px] "
+                      className="text-[30px] text-[#ff4242] p-[10px] "
                       icon={faHeart}
                     />
                   </div>
-                  <p className="text-white text-shadow text-center px-[18px] font-[500] text-[24px]">
+                  {/* <p className="text-white text-shadow text-center px-[18px] font-[500] text-[24px]">
                     Thứ nhỏ bé này là dành cho cậu đó ^ ^
-                  </p>
+                  </p> */}
                 </>
               )}
             </div>
