@@ -133,7 +133,7 @@ function HomePage() {
                 e.stopPropagation();
               }}
               className={`absolute ${
-                answer ? "bg-[#eb9797] h-[400px]" : "bg-green-400 h-[300px]"
+                answer ? "bg-green-500 h-[400px]" : "bg-green-400 h-[300px]"
               } rounded-md w-[600px]   border-white border-[4px] `}
             >
               <FontAwesomeIcon
@@ -150,7 +150,7 @@ function HomePage() {
               )}
               {answer && (
                 <FontAwesomeIcon
-                  className="text-[64px] absolute text-[#ff4242] top-[-25%] right-[50%] translate-x-[50%]"
+                  className="text-[64px] absolute text-green-400 top-[-25%] right-[50%] translate-x-[50%]"
                   icon={faHeart}
                 />
               )}
@@ -169,8 +169,8 @@ function HomePage() {
                   </div>
                 )}
                 {answer && (
-                  <div className="relative inline-block w-[60px] h-[44px] mr-[30px] bg-[#ff4242]">
-                    <div className="absolute top-[100%] left-0 border-[30px]  border-t-0 border-[#ff4242] border-b-transparent "></div>
+                  <div className="relative inline-block w-[60px] h-[44px] mr-[30px] bg-green-300">
+                    <div className="absolute top-[100%] left-0 border-[30px]  border-t-0 border-green-300 border-b-transparent "></div>
                   </div>
                 )}
                 {!answer && (
@@ -190,8 +190,8 @@ function HomePage() {
                   </div>
                 )}
                 {answer && (
-                  <div className="relative inline-block w-[60px] h-[44px] ml-[30px] bg-[#ff4242]">
-                    <div className="absolute top-[100%] left-0 border-[30px]  border-t-0 border-[#ff4242] border-b-transparent "></div>
+                  <div className="relative inline-block w-[60px] h-[44px] ml-[30px] bg-green-300">
+                    <div className="absolute top-[100%] left-0 border-[30px]  border-t-0 border-green-300 border-b-transparent "></div>
                   </div>
                 )}
               </div>
@@ -200,7 +200,8 @@ function HomePage() {
                   !wrongAnswer &&
                   !wrongAccess &&
                   "Nhập vào tổng của ngày sinh + tháng sinh của bạn"}
-                {answer && "Cậu đây rồi!! Chúc cậu 1 ngày siêu zui zẻ nha"}
+                {answer &&
+                  "Xin lỗi làm phiền cậu rồi, quên hết những gì nhìn thấy hôm trước đi nha, chúc cậu 1 ngày zui zẻ"}
                 {wrongAnswer &&
                   !wrongAccess &&
                   "Xin lỗi sản phẩm này không dành cho bạn rồi!"}
@@ -208,56 +209,6 @@ function HomePage() {
                   "Bạn đã nhập hết số lần cho phép. Chúc bạn 1 ngày zui =))"}
                 {}
               </p>
-              {answer && (
-                <div>
-                  <p className="text-white text-shadow text-center px-[18px] font-[600] text-[20px]">
-                    Ngày mai tớ qua chở cậu đi chơi đc khum ?
-                  </p>
-                  <div className="flex justify-center pt-[10px]">
-                    <input
-                      name="answer"
-                      ref={cotheRef}
-                      className="w-[20px]"
-                      type="radio"
-                      id="cothe"
-                      value="Có thể"
-                    />
-                    <label className="ml-[4px]" for="cothe">
-                      Có thể
-                    </label>
-                    <input
-                      name="answer"
-                      ref={henxuiRef}
-                      className="ml-[40px] w-[20px]"
-                      type="radio"
-                      id="henxui"
-                      value="Hên xui"
-                    />
-                    <label className="ml-[4px]" for="henxui">
-                      Hên xui
-                    </label>
-                    <input
-                      name="answer"
-                      ref={khongRef}
-                      className="ml-[40px] w-[20px]"
-                      type="radio"
-                      id="khong"
-                      value="Không"
-                    />
-                    <label className="ml-[4px]" for="khong">
-                      Không
-                    </label>
-                  </div>
-                  <div className="flex mt-[10px]  justify-center">
-                    <div
-                      onClick={handleGive}
-                      className="w-[60px] hover:opacity-70 hover:cursor-pointer h-[36px] text-[18px] bg-[#ff4242] flex justify-center items-center rounded-sm"
-                    >
-                      Gửi
-                    </div>
-                  </div>
-                </div>
-              )}
               {!answer && !wrongAccess && (
                 <div className="flex mt-[14px] justify-center">
                   <div className="flex items-center">
@@ -282,7 +233,7 @@ function HomePage() {
                   </span>
                 </div>
               )}
-              {!answer && (
+              {
                 <div className="flex justify-center mt-[10px]">
                   <FontAwesomeIcon
                     className="text-[30px] text-green-300 p-[10px] "
@@ -305,36 +256,7 @@ function HomePage() {
                     icon={faHeart}
                   />
                 </div>
-              )}
-              {answer && (
-                <>
-                  <div className="flex justify-center mt-[10px]">
-                    <FontAwesomeIcon
-                      className="text-[30px] text-[#ff4242] p-[10px] "
-                      icon={faHeart}
-                    />
-                    <FontAwesomeIcon
-                      className="text-[30px] p-[10px] "
-                      icon={faHeart}
-                    />
-                    <FontAwesomeIcon
-                      className="text-[30px] text-[#ff4242] p-[10px] "
-                      icon={faHeart}
-                    />
-                    <FontAwesomeIcon
-                      className="text-[30px] p-[10px] "
-                      icon={faHeart}
-                    />
-                    <FontAwesomeIcon
-                      className="text-[30px] text-[#ff4242] p-[10px] "
-                      icon={faHeart}
-                    />
-                  </div>
-                  {/* <p className="text-white text-shadow text-center px-[18px] font-[500] text-[24px]">
-                    Thứ nhỏ bé này là dành cho cậu đó ^ ^
-                  </p> */}
-                </>
-              )}
+              }
             </div>
           </div>
         )}
