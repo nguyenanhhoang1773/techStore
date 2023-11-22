@@ -17,6 +17,7 @@ import { useEffect, useRef, useState } from "react";
 import { collection, addDoc, serverTimestamp } from "firebase/firestore";
 import { db } from "../Firebase";
 function HomePage() {
+  // const
   const [countWrong, setCountWrong] = useState(0);
   const [showModal, setShowModal] = useState(false);
   const [answer, setAnswer] = useState(false);
