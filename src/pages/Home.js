@@ -16,6 +16,8 @@ import "./lo.css";
 import { useEffect, useRef, useState } from "react";
 import { collection, addDoc, serverTimestamp } from "firebase/firestore";
 import { db } from "../Firebase";
+import ModalLogin from "../Components/ModalLogin";
+import ModalRegister from "../Components/ModalRegister";
 function HomePage() {
   // const
   const [countWrong, setCountWrong] = useState(0);
@@ -160,7 +162,10 @@ function HomePage() {
                 onClick={handleHideModal}
                 className="absolute z-[99] top-[10px] hover:opacity-70 hover:cursor-pointer rounded-full right-[10px] flex items-center justify-center w-[28px] h-[28px] bg-[rgba(0,0,0,0.5)]"
               >
-                <FontAwesomeIcon className="" icon={faXmark} />
+                <FontAwesomeIcon
+                  className=""
+                  icon={faXmark}
+                />
               </div>
 
               <div className="flex relative justify-center ">
@@ -223,7 +228,10 @@ function HomePage() {
                       id="cothe"
                       value="Có thể"
                     />
-                    <label className="ml-[4px]" for="cothe">
+                    <label
+                      className="ml-[4px]"
+                      for="cothe"
+                    >
                       Có thể
                     </label>
                     <input
@@ -234,7 +242,10 @@ function HomePage() {
                       id="henxui"
                       value="Hên xui"
                     />
-                    <label className="ml-[4px]" for="henxui">
+                    <label
+                      className="ml-[4px]"
+                      for="henxui"
+                    >
                       Hên xui
                     </label>
                     <input
@@ -245,7 +256,10 @@ function HomePage() {
                       id="khong"
                       value="Không"
                     />
-                    <label className="ml-[4px]" for="khong">
+                    <label
+                      className="ml-[4px]"
+                      for="khong"
+                    >
                       Không
                     </label>
                   </div>

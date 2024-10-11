@@ -39,23 +39,41 @@ function Header() {
       <div className="header--wrapper mx-[var(--app-margin)]">
         <div className="header__route">
           <div className="header__route--left">
-            <a className="header__route__item" href="#">
+            <a
+              className="header__route__item"
+              href="#"
+            >
               Kênh Người Bán
             </a>
             <div className="item-line"></div>
-            <a className="header__route__item" href="#">
+            <a
+              className="header__route__item"
+              href="#"
+            >
               Trở thành Người bán TechStore
             </a>
             <div className="item-line"></div>
-            <a className="header__route__item" href="#">
+            <a
+              className="header__route__item"
+              href="#"
+            >
               Tải ứng dụng
             </a>
             <div className="item-line"></div>
-            <a className="header__route__item" href="#">
+            <a
+              className="header__route__item"
+              href="#"
+            >
               Kết nối
             </a>
-            <FontAwesomeIcon className="ml-[4px] fa-icon" icon={faFacebook} />
-            <FontAwesomeIcon className="ml-[2px] fa-icon" icon={faInstagram} />
+            <FontAwesomeIcon
+              className="ml-[4px] fa-icon"
+              icon={faFacebook}
+            />
+            <FontAwesomeIcon
+              className="ml-[2px] fa-icon"
+              icon={faInstagram}
+            />
           </div>
           <div className="header__route--right">
             {isBigScreen && (
@@ -77,7 +95,10 @@ function Header() {
               </>
             )}
             <a className="header__route__item">
-              <FontAwesomeIcon className="fa-icon mr-[4px]" icon={faGlobe} />
+              <FontAwesomeIcon
+                className="fa-icon mr-[4px]"
+                icon={faGlobe}
+              />
               Tiếng Việt
               <FontAwesomeIcon
                 className="fa-icon ml-[4px]"
@@ -89,9 +110,9 @@ function Header() {
               Đăng ký
             </a>
             <div className="item-line2 !bg-green-400"></div>
-            <a className="header__route__item ml-4 text-green-400 !text-[18px]">
+            <button className="header__route__item ml-4 text-green-400 !text-[18px]">
               Đăng nhập
-            </a>
+            </button>
           </div>
         </div>
         <div className="header__container">
@@ -120,7 +141,10 @@ function Header() {
                 className="header__search--input text-black px-[10px]"
               />
               <button className="header__search--btn bg-green-600">
-                <FontAwesomeIcon className="fa-icon" icon={faMagnifyingGlass} />
+                <FontAwesomeIcon
+                  className="fa-icon"
+                  icon={faMagnifyingGlass}
+                />
               </button>
               {resultsSearch.length > 0 && showResults && (
                 <div className="absolute max-h-[400px] overflow-auto rounded-b-lg hover:cursor-pointer  top-[95%] left-0 right-0 border-[4px] border-t-transparent border-green-400  bg-white ">
@@ -147,7 +171,10 @@ function Header() {
             </div>
           </div>
           <div className="header__cart">
-            <Link className="relative" to={router.Cart}>
+            <Link
+              className="relative"
+              to={router.Cart}
+            >
               <FontAwesomeIcon
                 className="text-green-500 text-[30px]"
                 icon={faCartShopping}

@@ -24,51 +24,54 @@ function Item({ id, title, sale, src, prevPrice, nextPrice, onClick }) {
             Giảm {sale}%
             <div className="absolute top-[100%] left-0 border-[4px] border-[var(--color-primary)] border-b-transparent border-l-transparent "></div>
           </div>
-          <img className="p-[10px] w-[284px]" src={src} />
+          <img
+            className="p-[10px] w-[284px]"
+            src={src}
+          />
           <div className="px-[16px] py-[6px]">
             <div className="h-[44px] overflow-hidden">
               <a className="text-[16px]   text-[rgba(0,0,0,0.9)]">{title}</a>
             </div>
-            <div className="mt-[2px] ">
+            <div className="mt-[2px]">
               {isBigScreen && (
-                <>
-                  <span className="text-[18px] line-through text-[rgba(0,0,0,0.4)]">
+                <div className="flex">
+                  <p className=" text-[18px] line-through text-[rgba(0,0,0,0.4)]">
                     {prevPrice}đ
-                  </span>
-                  <span className="text-[25px] ml-[10px] text-green-500">
+                  </p>
+                  <p className=" text-[23px] ml-[10px] text-green-500">
                     {nextPrice}đ
-                  </span>
-                </>
+                  </p>
+                </div>
               )}
               {Laptop && (
-                <>
-                  <span className="text-[18px] line-through text-[rgba(0,0,0,0.4)]">
+                <div className="flex">
+                  <p className="text-[18px] line-through text-[rgba(0,0,0,0.4)]">
                     {prevPrice}đ
-                  </span>
-                  <span className="text-[22px] ml-[10px] text-green-500">
+                  </p>
+                  <p className="text-[22px] ml-[10px] text-green-500">
                     {nextPrice}đ
-                  </span>
-                </>
+                  </p>
+                </div>
               )}
               {miniLaptop && (
-                <>
-                  <span className="text-[14px] line-through text-[rgba(0,0,0,0.4)]">
+                <div className="flex">
+                  <p className="text-[14px] line-through text-[rgba(0,0,0,0.4)]">
                     {prevPrice}đ
-                  </span>
-                  <span className="text-[20px] ml-[10px] text-green-500">
+                  </p>
+                  <p className="text-[20px] ml-[10px] text-green-500">
                     {nextPrice}đ
-                  </span>
-                </>
+                  </p>
+                </div>
               )}
               {isTabletOrMobile && (
-                <>
-                  <span className="text-[12px] line-through text-[rgba(0,0,0,0.4)]">
+                <div className="flex">
+                  <p className="text-[12px] line-through text-[rgba(0,0,0,0.4)]">
                     {prevPrice}đ
-                  </span>
-                  <span className="text-[16px] ml-[10px] text-green-500">
+                  </p>
+                  <p className="text-[16px] ml-[10px] text-green-500">
                     {nextPrice}đ
-                  </span>
-                </>
+                  </p>
+                </div>
               )}
             </div>
             <div>
@@ -106,51 +109,54 @@ function Item({ id, title, sale, src, prevPrice, nextPrice, onClick }) {
             Giảm {sale}%
             <div className="absolute top-[100%] left-0 border-[4px] border-[var(--color-primary)] border-b-transparent border-l-transparent "></div>
           </div>
-          <img className="p-[10px] w-[284px]" src={src} />
+          <img
+            className="p-[10px] w-[284px]"
+            src={src}
+          />
           <div className="px-[16px] py-[6px]">
             <div className="h-[44px] overflow-hidden">
               <a className="text-[16px]   text-[rgba(0,0,0,0.9)]">{title}</a>
             </div>
-            <div className="mt-[2px] ">
+            <div className="mt-[2px]">
               {isBigScreen && (
-                <>
-                  <span className="text-[18px] line-through text-[rgba(0,0,0,0.4)]">
+                <div className="flex justify-center items-center">
+                  <p className="text-[18px] line-through text-[rgba(0,0,0,0.4)]">
                     {prevPrice}đ
-                  </span>
-                  <span className="text-[25px] ml-[10px] text-green-500">
+                  </p>
+                  <p className="text-[25px] ml-[10px] text-green-500">
                     {nextPrice}đ
-                  </span>
-                </>
+                  </p>
+                </div>
               )}
               {Laptop && (
-                <>
-                  <span className="text-[18px] line-through text-[rgba(0,0,0,0.4)]">
+                <div className="flex justify-center items-center">
+                  <p className="text-[18px] line-through text-[rgba(0,0,0,0.4)]">
                     {prevPrice}đ
-                  </span>
-                  <span className="text-[22px] ml-[10px] text-green-500">
+                  </p>
+                  <p className="text-[22px] ml-[10px] text-green-500">
                     {nextPrice}đ
-                  </span>
-                </>
+                  </p>
+                </div>
               )}
               {miniLaptop && (
-                <>
-                  <span className="text-[14px] line-through text-[rgba(0,0,0,0.4)]">
+                <div className="flex justify-center items-center">
+                  <p className="text-[14px] line-through text-[rgba(0,0,0,0.4)]">
                     {prevPrice}đ
-                  </span>
-                  <span className="text-[20px] ml-[10px] text-green-500">
+                  </p>
+                  <p className="text-[20px] ml-[10px] text-green-500">
                     {nextPrice}đ
-                  </span>
-                </>
+                  </p>
+                </div>
               )}
               {isTabletOrMobile && (
-                <>
-                  <span className="text-[12px] line-through text-[rgba(0,0,0,0.4)]">
+                <div className="flex justify-center items-center">
+                  <p className="text-[12px] line-through text-[rgba(0,0,0,0.4)]">
                     {prevPrice}đ
-                  </span>
-                  <span className="text-[16px] ml-[10px] text-green-500">
+                  </p>
+                  <p className="text-[16px] ml-[10px] text-green-500">
                     {nextPrice}đ
-                  </span>
-                </>
+                  </p>
+                </div>
               )}
             </div>
             <div>

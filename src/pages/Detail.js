@@ -15,6 +15,7 @@ import { db, dbProduct } from "../api";
 import { useEffect, useState } from "react";
 import { useDispatch, useSelector } from "react-redux";
 import { addProduct } from "../features/CartManage";
+import Comment from "../Components/Comment";
 function DetailPage() {
   const products = useSelector((state) => state.cartManage.products);
   const dispath = useDispatch();
@@ -107,7 +108,10 @@ function DetailPage() {
                   onClick={handleHideModal}
                   className="absolute z-[99] top-[10px] hover:opacity-70 hover:cursor-pointer rounded-full right-[10px] flex items-center justify-center w-[28px] h-[28px] bg-[rgba(0,0,0,0.5)]"
                 >
-                  <FontAwesomeIcon className="" icon={faXmark} />
+                  <FontAwesomeIcon
+                    className=""
+                    icon={faXmark}
+                  />
                 </div>
                 <div className="flex relative justify-center ">
                   <FontAwesomeIcon
@@ -170,7 +174,10 @@ function DetailPage() {
           <div className="px-[10px]">
             <div className="flex border-r-[8px] shadow-lg border-l-[8px] border-green-400  justify-center rounded-lg bg-white text-[rgba(0,0,0,0.7)]">
               <div>
-                <img className="rounded-sm py-[10px]" src={product.src} />
+                <img
+                  className="rounded-sm py-[10px]"
+                  src={product.src}
+                />
                 <div></div>
               </div>
               <div className="px-[20px] ml-[40px] py-[30px]">
@@ -259,19 +266,28 @@ function DetailPage() {
                   <div className=" px-[10px] py-[8px] ">
                     <div className="flex">
                       <div className="w-[20px] flex justify-center">
-                        <FontAwesomeIcon className="mt-[3px]" icon={faStar} />
+                        <FontAwesomeIcon
+                          className="mt-[3px]"
+                          icon={faStar}
+                        />
                       </div>
                       <span className="ml-[10px]">{product.infor1}</span>
                     </div>
                     <div className="mt-[8px] flex">
                       <div className="w-[20px] flex justify-center">
-                        <FontAwesomeIcon className="mt-[3px]" icon={faStar} />
+                        <FontAwesomeIcon
+                          className="mt-[3px]"
+                          icon={faStar}
+                        />
                       </div>
                       <span className="ml-[10px]">{product.infor2}</span>
                     </div>
                     <div className="mt-[8px] flex">
                       <div className="w-[20px] flex justify-center">
-                        <FontAwesomeIcon className="mt-[3px]" icon={faStar} />
+                        <FontAwesomeIcon
+                          className="mt-[3px]"
+                          icon={faStar}
+                        />
                       </div>
                       <span className="ml-[10px]">{product.infor3}</span>
                     </div>
@@ -297,6 +313,28 @@ function DetailPage() {
               )}
             </Slider>
           </div>
+          {/* <div className="min-h-[400px] bg-white  rounded-md px-[14px] pt-[10px]">
+            <Comment
+              timestamp={"23:22"}
+              src="https://scontent.fdad3-5.fna.fbcdn.net/v/t1.6435-1/153228756_422142489066403_163080274611275956_n.jpg?stp=cp0_dst-jpg_s40x40&_nc_cat=107&ccb=1-7&_nc_sid=0ecb9b&_nc_eui2=AeGDOhEmcnPknLW3fC0OVPoIcoxI237tcPFyjEjbfu1w8UssIwBgu7tnl1BH8gOlPGdAuirNjTJg9BQBpKTaOoha&_nc_ohc=UTzhznKUMLQQ7kNvgFWYRHX&_nc_ht=scontent.fdad3-5.fna&_nc_gid=AHnkHD1zo_0kfruL0RsIlRl&oh=00_AYCh4NLhei7aTXuZW7cueOdg4xjqTm_b9yMCTLbkj7Z2IA&oe=67301419"
+              name={"hoàng"}
+              content={"khi nào thì về lại màu đỏ vậy ạ"}
+            />
+            <Comment
+              timestamp={"23:22"}
+              src="https://scontent.fdad3-5.fna.fbcdn.net/v/t1.6435-1/153228756_422142489066403_163080274611275956_n.jpg?stp=cp0_dst-jpg_s40x40&_nc_cat=107&ccb=1-7&_nc_sid=0ecb9b&_nc_eui2=AeGDOhEmcnPknLW3fC0OVPoIcoxI237tcPFyjEjbfu1w8UssIwBgu7tnl1BH8gOlPGdAuirNjTJg9BQBpKTaOoha&_nc_ohc=UTzhznKUMLQQ7kNvgFWYRHX&_nc_ht=scontent.fdad3-5.fna&_nc_gid=AHnkHD1zo_0kfruL0RsIlRl&oh=00_AYCh4NLhei7aTXuZW7cueOdg4xjqTm_b9yMCTLbkj7Z2IA&oe=67301419"
+              name={"hoàng"}
+              content={"khi nào thì về lại màu đỏ vậy ạ"}
+            />
+            <Comment
+              timestamp={"23:22"}
+              src="https://scontent.fdad3-5.fna.fbcdn.net/v/t1.6435-1/153228756_422142489066403_163080274611275956_n.jpg?stp=cp0_dst-jpg_s40x40&_nc_cat=107&ccb=1-7&_nc_sid=0ecb9b&_nc_eui2=AeGDOhEmcnPknLW3fC0OVPoIcoxI237tcPFyjEjbfu1w8UssIwBgu7tnl1BH8gOlPGdAuirNjTJg9BQBpKTaOoha&_nc_ohc=UTzhznKUMLQQ7kNvgFWYRHX&_nc_ht=scontent.fdad3-5.fna&_nc_gid=AHnkHD1zo_0kfruL0RsIlRl&oh=00_AYCh4NLhei7aTXuZW7cueOdg4xjqTm_b9yMCTLbkj7Z2IA&oe=67301419"
+              name={"hoàng"}
+              content={
+                "khi nào thì về lại màu đỏ vậy ạkhi nào thì về lại màu đỏ vậy ạ"
+              }
+            />
+          </div> */}
         </div>
       )}
     </div>
