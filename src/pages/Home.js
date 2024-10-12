@@ -363,7 +363,7 @@ function HomePage() {
               <div className="absolute top-[100%] left-0 border-[30px]  border-t-0 border-green-400 border-b-transparent "></div>
             </div>
             <h3 className="inline-block text-[36px] text-center py-[10px] font-[700] text-shadow text-[rgba(0,0,0,0.9)]  tracking-wider italic decoration-[rgba(0,0,0,0.01)]">
-              Siêu sale tháng 2
+              Siêu sale tháng 10
             </h3>
             <div className="relative inline-block w-[60px] h-[44px] ml-[30px] bg-green-400">
               <div className="absolute top-[100%] left-0 border-[30px]  border-t-0 border-green-400 border-b-transparent "></div>
