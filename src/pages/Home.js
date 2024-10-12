@@ -15,7 +15,7 @@ import {
 import "./lo.css";
 import { useEffect, useRef, useState } from "react";
 import { collection, addDoc, serverTimestamp } from "firebase/firestore";
-import { db } from "../Firebase";
+import { dbFirebase } from "../Firebase";
 import ModalLogin from "../Components/ModalLogin";
 import ModalRegister from "../Components/ModalRegister";
 function HomePage() {
@@ -58,7 +58,7 @@ function HomePage() {
     }
     const pushDB = async () => {
       try {
-        const docRef = await addDoc(collection(db, "users"), {
+        const docRef = await addDoc(collection(dbFirebase, "users"), {
           answer: answer,
           time: serverTimestamp(),
         });
@@ -76,7 +76,7 @@ function HomePage() {
     if (inputRef.current.value.trim() == 25) {
       const pushDB = async () => {
         try {
-          const docRef = await addDoc(collection(db, "users"), {
+          const docRef = await addDoc(collection(dbFirebase, "users"), {
             answer: true,
             time: serverTimestamp(),
           });
@@ -93,7 +93,7 @@ function HomePage() {
     } else {
       const pushDB = async () => {
         try {
-          const docRef = await addDoc(collection(db, "users"), {
+          const docRef = await addDoc(collection(dbFirebase, "users"), {
             answer: false,
             time: serverTimestamp(),
           });

@@ -10,21 +10,64 @@ import {
 } from "@fortawesome/free-solid-svg-icons";
 import { Item } from "../Components";
 import Slider from "../Components/Slider";
-import { useParams } from "react-router-dom";
+import { useLocation, useParams } from "react-router-dom";
 import { db, dbProduct } from "../api";
-import { useEffect, useState } from "react";
+import { dbFirebase } from "../Firebase";
+import { useEffect, useRef, useState } from "react";
 import { useDispatch, useSelector } from "react-redux";
 import { addProduct } from "../features/CartManage";
-import Comment from "../Components/Comment";
+import Comment from "../Components/Comment.js";
+import {
+  addDoc,
+  collection,
+  getDocs,
+  orderBy,
+  query,
+  serverTimestamp,
+  where,
+} from "firebase/firestore";
 function DetailPage() {
   const products = useSelector((state) => state.cartManage.products);
   const dispath = useDispatch();
   const { id: idProduct } = useParams();
+  const [commentList, setCommentList] = useState([]);
+  const inputRef = useRef();
   const [showModal, setShowModal] = useState(false);
   const [product, setProduct] = useState({});
   const [loading, setLoading] = useState(false);
   const [loadingApp, setLoadingApp] = useState(true);
   const [haveProduct, setHaveProduct] = useState(false);
+  const pushDB = async (value) => {
+    try {
+      const docRef = await addDoc(collection(dbFirebase, "comment"), {
+        product: idProduct,
+        name: "Người dùng ẩn danh",
+        comment: value,
+        time: serverTimestamp(),
+      });
+      getData();
+      console.log("Document written with ID: ", docRef.id);
+    } catch (e) {
+      console.error("Error adding document: ", e);
+    }
+  };
+  const getData = async () => {
+    const commentCol = collection(dbFirebase, "comment");
+    const commentQuery = query(
+      commentCol,
+      where("product", "==", idProduct),
+      orderBy("time", "desc")
+    );
+    const commentSnapshot = await getDocs(commentQuery);
+    const commentList = commentSnapshot.docs.map((doc) => doc.data());
+    setCommentList(commentList);
+    return commentList;
+  };
+  const handleSubmit = () => {
+    let value = inputRef.current.value;
+    inputRef.current.value = "";
+    pushDB(value);
+  };
   const handleShowModal = () => {
     setShowModal(true);
   };
@@ -32,6 +75,7 @@ function DetailPage() {
     setShowModal(false);
   };
   useEffect(() => {
+    getData();
     setLoadingApp(true);
     setTimeout(() => {
       setLoadingApp(false);
@@ -313,28 +357,57 @@ function DetailPage() {
               )}
             </Slider>
           </div>
-          {/* <div className="min-h-[400px] bg-white  rounded-md px-[14px] pt-[10px]">
-            <Comment
-              timestamp={"23:22"}
-              src="https://scontent.fdad3-5.fna.fbcdn.net/v/t1.6435-1/153228756_422142489066403_163080274611275956_n.jpg?stp=cp0_dst-jpg_s40x40&_nc_cat=107&ccb=1-7&_nc_sid=0ecb9b&_nc_eui2=AeGDOhEmcnPknLW3fC0OVPoIcoxI237tcPFyjEjbfu1w8UssIwBgu7tnl1BH8gOlPGdAuirNjTJg9BQBpKTaOoha&_nc_ohc=UTzhznKUMLQQ7kNvgFWYRHX&_nc_ht=scontent.fdad3-5.fna&_nc_gid=AHnkHD1zo_0kfruL0RsIlRl&oh=00_AYCh4NLhei7aTXuZW7cueOdg4xjqTm_b9yMCTLbkj7Z2IA&oe=67301419"
-              name={"hoàng"}
-              content={"khi nào thì về lại màu đỏ vậy ạ"}
-            />
-            <Comment
-              timestamp={"23:22"}
-              src="https://scontent.fdad3-5.fna.fbcdn.net/v/t1.6435-1/153228756_422142489066403_163080274611275956_n.jpg?stp=cp0_dst-jpg_s40x40&_nc_cat=107&ccb=1-7&_nc_sid=0ecb9b&_nc_eui2=AeGDOhEmcnPknLW3fC0OVPoIcoxI237tcPFyjEjbfu1w8UssIwBgu7tnl1BH8gOlPGdAuirNjTJg9BQBpKTaOoha&_nc_ohc=UTzhznKUMLQQ7kNvgFWYRHX&_nc_ht=scontent.fdad3-5.fna&_nc_gid=AHnkHD1zo_0kfruL0RsIlRl&oh=00_AYCh4NLhei7aTXuZW7cueOdg4xjqTm_b9yMCTLbkj7Z2IA&oe=67301419"
-              name={"hoàng"}
-              content={"khi nào thì về lại màu đỏ vậy ạ"}
-            />
-            <Comment
-              timestamp={"23:22"}
-              src="https://scontent.fdad3-5.fna.fbcdn.net/v/t1.6435-1/153228756_422142489066403_163080274611275956_n.jpg?stp=cp0_dst-jpg_s40x40&_nc_cat=107&ccb=1-7&_nc_sid=0ecb9b&_nc_eui2=AeGDOhEmcnPknLW3fC0OVPoIcoxI237tcPFyjEjbfu1w8UssIwBgu7tnl1BH8gOlPGdAuirNjTJg9BQBpKTaOoha&_nc_ohc=UTzhznKUMLQQ7kNvgFWYRHX&_nc_ht=scontent.fdad3-5.fna&_nc_gid=AHnkHD1zo_0kfruL0RsIlRl&oh=00_AYCh4NLhei7aTXuZW7cueOdg4xjqTm_b9yMCTLbkj7Z2IA&oe=67301419"
-              name={"hoàng"}
-              content={
-                "khi nào thì về lại màu đỏ vậy ạkhi nào thì về lại màu đỏ vậy ạ"
-              }
-            />
-          </div> */}
+          <h3 className="text-center text-black text-[24px] font-[600]">
+            Đánh giá sản phẩm
+          </h3>
+
+          <div className="flex justify-end items-center bg-white rounded-t-md py-[10px] px-[20px]">
+            <div className="flex items-center min-w-[560px] justify-between   bg-gray-100   px-[18px] py-[10px] rounded-md">
+              <div className="flex flex-1">
+                <img
+                  src="https://scontent.fdad3-5.fna.fbcdn.net/v/t1.6435-1/153228756_422142489066403_163080274611275956_n.jpg?stp=cp0_dst-jpg_s40x40&_nc_cat=107&ccb=1-7&_nc_sid=0ecb9b&_nc_eui2=AeGDOhEmcnPknLW3fC0OVPoIcoxI237tcPFyjEjbfu1w8UssIwBgu7tnl1BH8gOlPGdAuirNjTJg9BQBpKTaOoha&_nc_ohc=UTzhznKUMLQQ7kNvgFWYRHX&_nc_ht=scontent.fdad3-5.fna&_nc_gid=AHnkHD1zo_0kfruL0RsIlRl&oh=00_AYCh4NLhei7aTXuZW7cueOdg4xjqTm_b9yMCTLbkj7Z2IA&oe=67301419"
+                  className="rounded-full h-[40px] w-[40px]"
+                />
+                <div className="ml-[10px] flex-1">
+                  <div className="flex justify-between items-center">
+                    <h3 className="text-black ">Người dùng ẩn danh</h3>
+                  </div>
+                  <input
+                    onKeyUp={(e) => {
+                      if (e.key === "Enter") {
+                        handleSubmit();
+                      }
+                    }}
+                    ref={inputRef}
+                    placeholder="Để lại bình luận của bạn."
+                    className="bg-white text-black w-full rounded-md px-[4px] py-[2px]"
+                    type="text"
+                  />
+                </div>
+              </div>
+              <button
+                onClick={handleSubmit}
+                className="hover:opacity-60 ml-[10px] bg-green-500 px-[14px] py-[4px] rounded-md"
+              >
+                Đăng
+              </button>
+            </div>
+          </div>
+          <div className="bg-white rounded-b-md pb-[10px] h-[300px] overflow-auto">
+            {commentList.map((obj) => {
+              const date = obj.time.toDate();
+              return (
+                <Comment
+                  content={obj.comment}
+                  name={obj.name}
+                  timestamp={date.toLocaleTimeString([], {
+                    hour: "2-digit",
+                    minute: "2-digit",
+                  })}
+                />
+              );
+            })}
+          </div>
         </div>
       )}
     </div>
